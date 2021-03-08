@@ -1,0 +1,69 @@
+  
+
+<section class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section-heading">
+                    <h2>meal</h2>
+                </div>
+                <div class="section-heading" [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message">
+            
+                </div>
+                <form [formGroup]="mealForm" (ngSubmit)="onUpload()" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <fieldset>
+                                <input name="name" type="text" class="form-control" id="name" placeholder="Meal name..." required formControlName="name" [(ngModel)]=data.name>
+                            </fieldset>
+                            <fieldset>
+                                <input name="price" type="number"  class="form-control" id="price" placeholder="Meal price..." required formControlName="price" minlength="1" [(ngModel)]=data.price>
+                            </fieldset>
+                            <fieldset>
+                                <select required name='cat' class="form-control" formControlName="cat" [(ngModel)]=data.cat>
+                                    <option value="">Select category</option>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                </select>
+                            </fieldset>
+                        
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <textarea name="details" rows="6" class="form-control" id="details" placeholder="Meal details..." required formControlName="details" [(ngModel)]=data.details></textarea>
+                            </fieldset>
+                            <fieldset>
+                                <input type="file"  (change)="onFileChange($event)" name="meal" class="form-control"  [(ngModel)]=data.img> 
+                            </fieldset>
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn">Sava</button>
+                            </fieldset>
+                        </div>
+                         
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="section-heading contact-info">
+                    <section class="featured-food">
+                        <div class="container"> 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="food-item"  >
+                                        <!-- <img  src="" > -->
+                                        <div class="price"> {{data.price}}$ </div>
+                                        <div class="text-content">
+                                            <h4> {{data.name}} </h4>
+                                            <p> {{data.details}} </p>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                         
+                    </section>    </div>
+            </div>
+        </div>
+    </div>
+</section>

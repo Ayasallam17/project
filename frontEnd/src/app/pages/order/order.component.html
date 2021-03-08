@@ -1,0 +1,30 @@
+<section class="container-fluid my-5">
+    <div class="row d-flex justify-content-center">
+        <article class="col-md-3 col-12 border border-2 text-center p-3 m-2">
+            <h3> {{data.name}} </h3>
+            <p> {{data.details}} </p>
+            <p> {{data.price}} </p>
+        </article>
+    </div>
+</section>
+<div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message">  
+</div>
+<section class="container my-7">
+    <form [formGroup]="orderForm" (ngSubmit)="handelConfirm()"> 
+        <input  placeholder="enter count" class="form-control my-3"  formControlName="count"
+        [ngClass]="(count?.invalid && (count?.touched || count?.dirty))?'err':''"> 
+        <div class="alert alert-danger" *ngIf="count?.invalid && (count?.touched || count?.dirty)">
+            <!-- <div *ngIf="count?.errors?.required">
+                count required
+            </div> -->
+            <!-- <div *ngIf="count?.errors?.number">
+                count value failed
+            </div> -->
+        </div>
+
+        <input placeholder="name" class="form-control my-3"  type="text" formControlName="name">
+        <input placeholder="address" class="form-control my-3" formControlName="address">
+        <input placeholder="phone" class="form-control my-3" formControlName="phone">
+        <button type="submit" class="btn btn-success" >Confirm Order</button>
+    </form>
+</section>

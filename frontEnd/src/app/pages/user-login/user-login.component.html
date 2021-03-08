@@ -1,0 +1,65 @@
+<!-- <p>user-login works!</p>
+<h2 class="text-center">login</h2>
+
+<div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null"  [innerText]="message" >
+</div>
+
+
+<form [formGroup]="loginForm" (ngSubmit)="handelLogin()">  
+    <input placeholder="email" class="form-control my-3" formControlName="email"
+    [ngClass]="(email?.invalid && (email?.touched || email?.dirty))?'err':''">
+    <div class="alert alert-danger" *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+        <div *ngIf="email?.errors?.required">
+            email required
+        </div>
+        <div *ngIf="email?.errors?.email">
+            email value failed
+        </div>
+    </div>
+    <input placeholder="password" class="form-control my-3" formControlName="password">
+    <button type="submit" class="btn btn-success">Login</button>
+</form>
+<div class="primary-white-button">
+    <a routerLink="register"  class="scroll-link" data-id="book-table">Sign Up</a>
+</div> -->
+
+<section class="cook-delecious">
+    <div class="container">
+        <div class="col">
+            <div class="col-md-6">
+                <div class="cook-content">
+                    <h4>Sign in</h4>
+                    <div class="contact-content col" >
+                        <div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null"  [innerText]="message" >
+                        </div>
+                        <form id="contact" [formGroup]="loginForm" (ngSubmit)="handelLogin()">
+                            <fieldset>
+                                <input name="email" type="text" class="form-control" id="email" placeholder="Your email..." required formControlName="email"
+                                [ngClass]="(email?.invalid && (email?.touched || email?.dirty))?'err':''">
+                                <div class="alert alert-danger" *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+                                    <div *ngIf="email?.errors?.required">
+                                        email required
+                                    </div>
+                                    <div *ngIf="email?.errors?.email">
+                                        email value failed
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <input name="password" type="text" class="form-control" id="phone" placeholder="Your password..." required formControlName="password">
+                            </fieldset>
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn">Sign in</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <span>or</span>
+                    <div class="primary-white-button">
+                        <a routerLink="/register"  class="scroll-link" data-id="book-table">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 

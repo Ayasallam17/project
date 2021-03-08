@@ -1,0 +1,11 @@
+<p>user-login works!</p>
+<h2 class="text-center">login</h2>
+<div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null">
+    {{flag?'login': "error in data" }}
+</div>
+<form [formGroup]="loginForm" (ngSubmit)="handelLogin()">  
+    <input placeholder="your id number" class="form-control my-3" formControlName="id">
+    <input placeholder="your password" class="form-control my-3" formControlName="password">
+    <button type="submit" class="btn btn-success">Login</button>
+</form>
+ 

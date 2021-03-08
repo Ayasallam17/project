@@ -1,0 +1,20 @@
+<h2 class="text-center">Register</h2>
+
+<div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null">
+    {{flag?'registered':'error accoured'}}
+</div>
+
+<form [formGroup]="registerForm" (ngSubmit)="handelRegister()">  
+    <input placeholder="user id" class="form-control my-3" formControlName="user_id"  >
+    <input placeholder="password" class="form-control my-3" formControlName="password">
+    <input placeholder="phone" class="form-control my-3" formControlName="phone">
+<ng-container formGroupName="addresses">
+    <input placeholder="address type" class="form-control my-3" formControlName="addr_type">
+    <input placeholder="address details" class="form-control my-3" formControlName="details">
+</ng-container> 
+<select name="meal_cat"  class="form-control my-3" formControlName="route" >
+    <option value="admin">admin</option>
+    <option value="worker">Worker</option>
+</select>
+    <button type="submit" class="btn btn-success">Add Worker</button>
+</form>

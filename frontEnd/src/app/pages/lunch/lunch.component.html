@@ -1,0 +1,15 @@
+<section class="container-fluid my-5">
+    <h2 class="text-center">Lunch Meals</h2>
+    <div class="row d-flex justify-content-center">
+        <article class="col-md-3 col-12 border border-2 text-center p-3 m-2" *ngFor="let meal of allMeal">
+            <i class="fab fa-{{meal.icon}} fa-5x"></i>
+            <h3>{{meal.name}}</h3>
+            <p>{{meal.details}}</p>
+            <p>{{meal.price}}</p>
+            <button class="btn btn-success " >Order</button>
+        </article>
+         
+    </div>
+</section>
+
+
