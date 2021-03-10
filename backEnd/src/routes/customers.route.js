@@ -4,11 +4,19 @@ const express = require('express')
 const router = new express.Router()
 const Meal = require('../models/meals.model')
 const Order = require('../models/orders')
-router.post('/confirmorder' , async (req , res) =>{
-     
+router.post('/confirmorder' , authMe, async (req , res) =>{
+    const order = new Order(req.body)
+    maxNum = 7
     try { 
-        const order = new Order(req.body)
-    order.save()
+    await custModel.findOneAndUpdate({_id :req.user._id}, 
+        {
+            $inc:{
+                max_orders:1
+            }
+    })
+    console.log(req.user)
+    if(req.user.max_orders> maxNum) throw new Error(`not allow order more than ${maxNum} `)
+    await order.save()
     res.status(200).send({
         apistatus:true,
         data:order, 
@@ -26,10 +34,10 @@ router.post('/confirmorder' , async (req , res) =>{
 // user regiter
 router.post('/user/register' , async (req , res) =>{
     const customerData = new custModel(req.body)
-    //console.log(req.body)
+    customerData.max_orders = 0
     try { 
-    //await custModel.checkUniqEmail(req.body.email)
     await customerData.save()
+    //console.log(customerData)
     res.status(200).send({
         apistatus:true,
         data:customerData,

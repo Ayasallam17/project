@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken')
-const User = require('../models/customers.models')
-const authMe = async (req, res, next)=>{
+const Worker = require("../models/worker.model")
+const authWorker = async (req, res, next)=>{
    try{
        const token =  req.header('Authorization').replace('Bearer ','')
        const decodedToken = jwt.verify(token, '123')
-       const user = await User.findOne({_id : decodedToken._id, 'tokens.token':token})
+       const user = await Worker.findOne({_id : decodedToken._id, 'tokens.token':token})
        if(!user) throw new Error("you should log first")
         req.user = user
         req.token = token
-        //req.max_orders = user.max_orders
         next()
    }
    catch(e){
@@ -20,4 +19,4 @@ const authMe = async (req, res, next)=>{
    }
     
 }
-module.exports = authMe
+module.exports = authWorker

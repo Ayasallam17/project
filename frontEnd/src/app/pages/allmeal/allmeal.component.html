@@ -1,10 +1,52 @@
 <section class="featured-food">
     <h2 class="text-center">Breakfast Meals</h2>
+    <div class="container" *ngIf = "flag!=true"> 
+        <div class="row">
+            <div class="col-md-4" *ngFor="let meal of breakfastMeal">
+                <div class="food-item"  >
+                    <!-- <img  src="http://localhost:3000/showallbreakfast/{{meal.img}}" > -->
+                    <div class="price"> {{meal.price}}$ </div>
+                    <div class="text-content">
+                        <h4> {{meal.name}} </h4>
+                        <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                    </div>
+                    <div class="primary-white-button">
+                        <a routerLink="/allmeal/{{meal._id}}"  class="scroll-link" data-id="book-table">update</a>
+                        <a (click) ="delete(meal._id)"    class="scroll-link" data-id="book-table">remove</a>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>    
+</section>
+<section class="featured-food">
+    <h2 class="text-center">Lunch meals</h2>
     <div class="container"> 
         <div class="row">
-            <div class="col-md-4" *ngFor="let meal of allMeal">
+            <div class="col-md-4" *ngFor="let meal of lunchMeal">
                 <div class="food-item"  >
-                    <img  src="http://localhost:3000/showallbreakfast/{{meal.img}}" >
+                    <!-- <img  src="http://localhost:3000/showallbreakfast/{{meal.img}}" > -->
+                    <div class="price"> {{meal.price}}$ </div>
+                    <div class="text-content">
+                        <h4> {{meal.name}} </h4>
+                        <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                    </div>
+                    <div class="primary-white-button">
+                        <a routerLink="/allmeal/{{meal._id}}"  class="scroll-link" data-id="book-table">update</a>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>    
+</section>
+
+<section class="featured-food">
+    <h2 class="text-center">Dinner Meals</h2>
+    <div class="container"> 
+        <div class="row">
+            <div class="col-md-4" *ngFor="let meal of dinnerMeal">
+                <div class="food-item"  >
+                    <!-- <img  src="http://localhost:3000/showallbreakfast/{{meal.img}}" > -->
                     <div class="price"> {{meal.price}}$ </div>
                     <div class="text-content">
                         <h4> {{meal.name}} </h4>

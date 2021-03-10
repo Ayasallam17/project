@@ -23,7 +23,7 @@ let storage = multer.diskStorage({
 let upload = multer({storage})
 router.post('/addmeal', upload.single('meal') , async(req , res)=>{
     const meal = new Meal(req.body)
-    console.log(req.body)
+    //console.log(req.body)
     try{
         meal.img = `${req.file.destination}/${req.file.filename}`
         await meal.save()
@@ -61,15 +61,14 @@ router.post('/addmeal', upload.single('meal') , async(req , res)=>{
         })
     }
 })
-router.post('/updatemeal', async(req,res)=>{
-    //_id = req.params.id
-    console.log(req)
+router.post('/updatemeal/:id', upload.single('meal'), async(req,res)=>{
+    _id = req.params.id
     try{
-       // meal = await Meal.findByIdAndUpdate(_id)
-       // await meal.save()
+       await Meal.findByIdAndUpdate(_id , req.body)
+       meal =  await Meal.findById(_id)
         res.status(200).send({
-            status:1,
-            data:"koo",
+            status:1,   
+            data:meal,
             message:'meal updates successfuly'
         })
     }
@@ -82,5 +81,68 @@ router.post('/updatemeal', async(req,res)=>{
     }
 })
 
+router.post('/deletemeal/:id', async(req,res)=>{
+    _id = req.params.id
+    try{
+       await Meal.findByIdAndRemove(_id)
+        res.status(200).send({
+            status:1,   
+            data:"deleted successfully",
+            message:'meal deleted successfuly'
+        })
+    }
+    catch(e){
+        res.status(400).send({
+            status:0,
+            data: e.message,
+            message: 'error in  deleting this meal'
+        })
+    }
+})
+
+router.post('/discount', async(req,res)=>{
+    
+   //const meals = await Meal.find( {cat: req.body.cat})
+    await  Meal.updateMany({cat: req.body.cat}, { "discount": req.body.precent/100 })
+
+    try{
+        mealDiscount = await Meal.aggregate([{ 
+            $project: {
+                //cat: req.body.cat,
+                "price": {
+                    $cond: { if: { $eq : [ "$cat", req.body.cat ] }, then: { 
+                    $reduce: {
+                            input: ["$discount"],
+                            initialValue: "$price",
+                            in: { $multiply: [ "$$value", { $subtract: [ 1, "$$this" ] } ] }
+                          }
+                        }, else: {}
+                  }
+                }
+              }
+        }])
+        mealDiscount.forEach( async element => {
+            try{ 
+            await Meal.findByIdAndUpdate( element._id , {"price":element.price} )}
+            catch(e){
+                console.log(e)
+            }
+        });
+         
+         
+        res.status(200).send({
+            status:1,   
+            data:mealDiscount,
+            message:'meals discount added successfuly'
+        })
+    }
+    catch(e){
+        res.status(400).send({
+            status:0,
+            data: e.message,
+            message: 'error in  deleting this meal'
+        })
+    }
+})
 
 module.exports = router

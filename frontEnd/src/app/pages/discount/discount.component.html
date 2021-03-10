@@ -1,6 +1,6 @@
 
-<app-workernav></app-workernav>
 
+<app-workernav></app-workernav>
  <section class="contact-us">
     <div class="container">
         <div class="row">
@@ -11,14 +11,11 @@
                 <div class="section-heading" [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message">
             
                 </div>
-                <form [formGroup]="mealForm" (ngSubmit)="onUpload()" >
+                <form [formGroup]="discountForm" (ngSubmit)="handleDiscount()" >
                     <div class="row">
                         <div class="col-md-6">
                             <fieldset>
-                                <input name="name" type="text" class="form-control" id="name" placeholder="Meal name..." required formControlName="name">
-                            </fieldset>
-                            <fieldset>
-                                <input name="price" type="number"  class="form-control" id="price" placeholder="Meal price..." required formControlName="price" minlength="1">
+                                <input name="precent" type="number"  class="form-control" id="precent" placeholder="precent of discount..." required formControlName="precent" minlength="1">
                             </fieldset>
                             <fieldset>
                                 <select required name='cat' class="form-control" formControlName="cat">
@@ -30,13 +27,7 @@
                             </fieldset>
                         
                         </div>
-                        <div class="col-md-6">
-                            <fieldset>
-                                <textarea name="details" rows="6" class="form-control" id="details" placeholder="Meal details..." required formControlName="details"></textarea>
-                            </fieldset>
-                            <fieldset>
-                                <input type="file"  (change)="onFileChange($event)" name="meal" class="form-control" > 
-                            </fieldset>
+                        <div class="col-md-3">
                             <fieldset>
                                 <button type="submit" id="form-submit" class="btn">Sava</button>
                             </fieldset>
@@ -54,23 +45,3 @@
         </div>
     </div>
 </section> 
-
-<!-- <h2 class="text-center">Add New Meal</h2>
-
- <div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null">
-    {{flag?'added meal': "unauther" }}
-</div>
-
-<form [formGroup]="mealForm" (ngSubmit)="onUpload()" >  
-    <input placeholder="Meal Name" class="form-control my-3" formControlName="name"  >
-    <input placeholder="Meal Details" class="form-control my-3" formControlName="details"  >
-    <input placeholder="price" class="form-control my-3" formControlName="price">
-    <select name="meal_cat"  class="form-control my-3" formControlName="cat" placeholder="select meal category" >
-        <option value="breakfast">BreakFast</option>
-        <option value="dinner">Dinner</option>
-        <option value="lunch">Lanuch</option>
-    </select>
-
-     <input type="file" (change)="onFileChange($event)" name="meal" > 
-    <button type="submit" class="btn btn-success" >Sava</button>
-</form>  --> -->

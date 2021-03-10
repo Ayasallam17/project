@@ -7,10 +7,10 @@ export interface User {
         addr_type:string
         details:string
     }
+    max_orders?:number
     routes?:{
         route:string
     }
-
     tokens?:[
         {token:string}
     ]

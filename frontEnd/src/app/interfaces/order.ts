@@ -1,5 +1,5 @@
 export interface Order {
     count:number
-    address:string
-    phone:string
+    address?:string
+    phone?:string
 }

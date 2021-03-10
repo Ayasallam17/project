@@ -1,4 +1,49 @@
-<section class="container-fluid my-5">
+<app-nav></app-nav>
+  <section class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="section-heading">
+                    <h2>Order Now</h2>
+                </div>
+                <div class="section-heading" [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message"></div>
+                <form [formGroup]="orderForm" (ngSubmit)="handelConfirm()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <fieldset>
+                                <input name="count" type="number"  class="form-control" id="count" placeholder="count of meal..." required formControlName="count" minlength="1">
+                            </fieldset>
+                            <fieldset>
+                                <input name="address" type="text" class="form-control" id="address" placeholder="your address..." required formControlName="address">
+                            </fieldset>
+                            <fieldset>
+                                <input name="phone" type="text"  class="form-control" id="phone" placeholder="your phone..." required formControlName="phone" minlength="1">
+                            </fieldset>
+                            <div class="formcontrol">if you did't enter phone we will connect with you by one you sign in</div>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="enter message if you want..." required formControlName="message"></textarea>
+                            </fieldset>
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn" >Sava</button>
+                            </fieldset>
+                        </div>
+                         
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="section-heading contact-info">
+                    <h2>Role of orders</h2>
+                    <p>Pellentesque nec orci in erat venenatis viverra. Vivamus in lorem et leo feugiat ullamcorper. Donec volutpat fermentum erat non aliquet. Cras fermentum, risus a blandit sodales, erat turpis eleifend lacus, venenatis mollis leo lorem vel eros. Quisque et sem tempus, feugiat urna iaculis, tempor metus.<br><br><em>30 Raffles Ave, <br>Singapore 039803</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+<!-- <section class="container-fluid my-5">
     <div class="row d-flex justify-content-center">
         <article class="col-md-3 col-12 border border-2 text-center p-3 m-2">
             <h3> {{data.name}} </h3>
@@ -6,25 +51,16 @@
             <p> {{data.price}} </p>
         </article>
     </div>
-</section>
-<div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message">  
-</div>
-<section class="container my-7">
+</section> -->
+<!-- <div [ngClass]="flag?'alert alert-success':'alert alert-danger'" *ngIf="flag!=null" [innerText]="message"></div>
+<section class="container col-md-4">
     <form [formGroup]="orderForm" (ngSubmit)="handelConfirm()"> 
-        <input  placeholder="enter count" class="form-control my-3"  formControlName="count"
+        <input  placeholder="enter count" class="form-control my-7"  formControlName="count"
         [ngClass]="(count?.invalid && (count?.touched || count?.dirty))?'err':''"> 
-        <div class="alert alert-danger" *ngIf="count?.invalid && (count?.touched || count?.dirty)">
-            <!-- <div *ngIf="count?.errors?.required">
-                count required
-            </div> -->
-            <!-- <div *ngIf="count?.errors?.number">
-                count value failed
-            </div> -->
-        </div>
-
-        <input placeholder="name" class="form-control my-3"  type="text" formControlName="name">
+        <div class="alert alert-danger" *ngIf="count?.invalid && (count?.touched || count?.dirty)"></div>
         <input placeholder="address" class="form-control my-3" formControlName="address">
         <input placeholder="phone" class="form-control my-3" formControlName="phone">
-        <button type="submit" class="btn btn-success" >Confirm Order</button>
+        <div class="formcontrol">if you did't enter phone we will connect with you by one you sign in</div>
+        <button type="submit" class="btn btn-success" disabled= {{disableOrder}} >Confirm Order</button>
     </form>
-</section>
+</section> -->

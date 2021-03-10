@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators , FormArray , FormBuilder } from '@angular/forms';
-import { NgForm } from '@angular/forms';
-import { FormsModule } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Meal } from 'src/app/interfaces/meal';
 import { WorkerService } from 'src/app/services/worker/worker.service';
 @Component({
   selector: 'app-meal',
@@ -15,7 +12,7 @@ export class MealComponent implements OnInit {
   data:any
   message :string=""
  mealForm = new FormGroup({
-     name:new FormControl('',[Validators.required]),
+    name:new FormControl('',[Validators.required]),
     details:new FormControl('',[Validators.required ]),
     price:new FormControl('',[Validators.required]),
     cat:new FormControl('' , [Validators.required])
@@ -33,10 +30,10 @@ export class MealComponent implements OnInit {
   selectedfile:any ='' 
   onFileChange(event){
     this.selectedfile = event.target.files[0]
-    //console.log(this.selectedfile)
+    console.log(this.selectedfile)
   }
   onUpload(){
-    //console.log(this.mealForm.value)
+
     const  uploadData  = new FormData()
     uploadData.append('meal' , this.selectedfile, this.selectedfile.name)
     uploadData.append("name" ,this.mealForm.value.name)
@@ -45,10 +42,13 @@ export class MealComponent implements OnInit {
     uploadData.append("cat" ,this.mealForm.value.cat)
     this._meal.addmeal(uploadData).subscribe(
       res=>{
-        console.log(res.data)
-    
+        this.mealForm.reset()
+        this.flag=true
+        this.message = res.message
       },
       err=>{
+        this.flag=true
+        this.message = err.message
         console.log(err)
       }
     )

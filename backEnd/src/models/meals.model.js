@@ -1,25 +1,39 @@
 const mongoose = require('mongoose')
+
 const validator = require('validator')
 
 const meals_schema=  new mongoose.Schema(
     {
     name:{
         type:String,
-        trim:true
+        trim:true,
+        require:true
     },
     details:{
         type:String,
         trim:true,
+        require:true
     },
     price:{
         type:Number,
+        require:true
     }
     ,img :{
-        type:String
+        type:String,
+        trim:true,
+        require:true
     },
     cat:{
-        type:String
+        type:String,
+        trim:true,
+        require:true
+    },
+    discount:{ 
+        type:Number
     }
+    
+
+    
 },
   {Timestamp:true}
 )

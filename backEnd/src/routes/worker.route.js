@@ -5,7 +5,7 @@ const authroute = require('../middleware/authroute')
 const Worker = require('../models/worker.model')
 const Meal = require('../models/meals.model')
 const Order = require('../models/orders')
-
+const authWorker = require('../middleware/authWorker')
 
 router.post('/worker_register' , async (req , res) =>{
     const worker = new Worker(req.body)
@@ -27,7 +27,7 @@ router.post('/worker_register' , async (req , res) =>{
     }
 })
 
-router.post('/worker_login', async(req,res)=>{
+router.post('/worker/login', async(req,res)=>{
     try{
         worker = await Worker.checkWorkerUserIdAndPassword(req.body.user_id, req.body.password)
 
@@ -49,7 +49,27 @@ router.post('/worker_login', async(req,res)=>{
             })
         }
 })
+router.post('/worker/logout', authWorker, async(req,res)=>{
+    try{
+        req.user.tokens = req.user.tokens.filter((singleToken)=>{
+            return singleToken.token != req.token
+        })
+        await req.user.save()
+        res.status(200).send({
+            error: null,
+            apiStatus:true,
+            data: 'logged out successfully'
+        })
+    }
+    catch(error){
+        res.status(400).send({
+            error: error.message,
+            apiStatus:false,
+            data: error.message
+        })
+    }
 
+})
 router.post('/showorders', async(req,res)=>{
     try{
         const orders = await Order.find()

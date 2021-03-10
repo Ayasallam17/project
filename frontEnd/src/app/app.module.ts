@@ -10,7 +10,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { from } from 'rxjs';
 import { UserRegisterComponent } from './pages/user-register/user-register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { WorkerRegiterComponent } from './pages/worker-regiter/worker-regiter.component';
@@ -30,6 +29,8 @@ import { WorkerHomeComponent } from './pages/worker-home/worker-home.component';
 import { AllmealComponent } from './pages/allmeal/allmeal.component';
 import { MealoperationComponent } from './pages/mealoperation/mealoperation.component';
 import { ButtonComponent } from './pages/button/button.component';
+import { DiscountComponent } from './pages/discount/discount.component';
+import { WorkernavComponent } from './shared/workernav/workernav.component';
 
 
 @NgModule({
@@ -53,6 +54,8 @@ import { ButtonComponent } from './pages/button/button.component';
     AllmealComponent,
     MealoperationComponent,
     ButtonComponent,
+    DiscountComponent,
+    WorkernavComponent,
     
   ],
   imports: [

@@ -12,7 +12,7 @@ const order = new mongoose.Schema({
     count:{
         type:Number,
     },
-    name:{
+    username:{
         type:String,
         trim:true
     },
@@ -22,6 +22,10 @@ const order = new mongoose.Schema({
     },
     phone:{
         type:Number
+    },
+    message:{
+        type:String,
+        trim:true
     }
 
 })

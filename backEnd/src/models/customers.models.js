@@ -29,9 +29,12 @@ const customers_schema=  new mongoose.Schema(
     phone:{
         type:String,
         trim:true,
-        validate(value){
-            if(!validator.isMobilePhone(value,['ar-EG'])) throw new Error('invalid phone number')
-        }
+        // validate(value){
+        //     if(!validator.isMobilePhone(value,['ar-EG'])) throw new Error('invalid phone number')
+        // }
+    },
+    max_orders:{
+        type:Number,
     },
     tokens:[
         { 

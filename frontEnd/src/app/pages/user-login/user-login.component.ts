@@ -26,8 +26,8 @@ this._user.loginUser(this.loginForm.value.email, this.loginForm.value.password).
   res=>{
     this._user.token=res.token
     localStorage.setItem('token', res.token)
-    console.log("user token"+res.token)
-    this.router.navigateByUrl('')
+    //console.log("user token"+res.token)
+    this.router.navigateByUrl('home')
     this.flag = true
   },
   err=>{ 

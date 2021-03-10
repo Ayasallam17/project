@@ -17,7 +17,10 @@ export class WorkerService {
   }
   loginworker(user_id:string, password:string):Observable<any>{
     const data={user_id, password}
-    return this._http.post(`${this.commonUrl}/worker_login`, data)
+    return this._http.post(`${this.commonUrl}/worker/login`, data)
+  }
+  logoutworker():Observable<any>{
+    return this._http.post(`${this.commonUrl}/worker/logout`, '')
   }
   //admin operations
   addmeal(data):Observable<any>{
@@ -34,7 +37,14 @@ export class WorkerService {
   getmeal(id):Observable<any>{
     return this._http.post(`${this.commonUrl}/getmeal/${id}`,'')
   }
-  updatemeal(data):Observable<any>{
-    return this._http.post(`${this.commonUrl}/updatemeal`,data)
+  updatemeal(data , id):Observable<any>{
+    return this._http.post(`${this.commonUrl}/updatemeal/${id}`,data) 
   }
+  deleteMeal(id):Observable<any>{
+    return this._http.post(`${this.commonUrl}/deletemeal/${id}`, '') 
+  }
+  addDiscount(data):Observable<any>{
+    return this._http.post(`${this.commonUrl}/discount`, data) 
+  }
+
 }

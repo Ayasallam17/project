@@ -48,5 +48,8 @@ export class UserService {
   isLoggedTest(){
     return this.isLogged
   }
+  profile():Observable<any>{
+    return this._http.get(`${this.commonUrl}/profile`)
+  }
 
 }

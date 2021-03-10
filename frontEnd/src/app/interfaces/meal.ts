@@ -4,4 +4,5 @@ export interface Meal {
     price:number
     img:string
     cat:string
+    discount?:number
 }
