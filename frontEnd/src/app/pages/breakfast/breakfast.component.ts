@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class BreakfastComponent implements OnInit {
   allMeal:any
+  apiurl = 'localhost:3000/'
   constructor(private _meal:UserService) { }
 
   ngOnInit(): void {
@@ -17,7 +18,12 @@ export class BreakfastComponent implements OnInit {
     this._meal.showAllBreakfastMeals().subscribe(
       res=>{
         this.allMeal = res.data
-        console.log(res)
+        // this.allMeal.map(image=>{
+        //   image.img= `${this.apiurl}${image.img}`.replace(/\\/g,"/")
+        //   console.log(image.img)
+        //   return image
+        // })
+        // console.log(res)
       },
       err=>{
         console.log(err)

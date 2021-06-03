@@ -1,15 +1,37 @@
-<section class="container-fluid my-5">
+<app-nav></app-nav>
+<section class="featured-food">
     <h2 class="text-center">Lunch Meals</h2>
-    <div class="row d-flex justify-content-center">
-        <article class="col-md-3 col-12 border border-2 text-center p-3 m-2" *ngFor="let meal of allMeal">
-            <i class="fab fa-{{meal.icon}} fa-5x"></i>
-            <h3>{{meal.name}}</h3>
-            <p>{{meal.details}}</p>
-            <p>{{meal.price}}</p>
-            <button class="btn btn-success " >Order</button>
-        </article>
-         
+    <div class="container"> 
+        <div class="row">
+            <div class="col-md-4" *ngFor="let meal of allMeal">
+                <div class="food-item"  >
+                    <img  src="http(s)://localhost:3000/{{meal.img}}" >
+                    <div class="price"> {{meal.price}}$ </div>
+                    <div class="text-content">
+                        <h4> {{meal.name}} </h4>
+                        <p>Dreamcatcher squid ennui cliche chicharros nes echo  small batch jean shorts hexagon street art knausgaard wolf...</p>
+                    </div>
+                    <div class="primary-white-button">
+                        <a routerLink="/breakfast/{{meal._id}}"  class="scroll-link" data-id="book-table">Order Now</a>
+                    </div>
+                </div>  
+            </div>
+        </div>
     </div>
-</section>
+     
+</section> 
+<!-- <section class="container">
+    <div class="row d-flex justifuy-content-center">
+        <div class="col-md-3 col-12 m-2 p-2 border border-3" 
+        *ngFor="let meal of allMeal">
+            <h3>{{meal.name}}</h3>
+            <h4>{{meal.details}}</h4>
+            <h4>{{meal.price}}</h4>
+        </div>
+    </div>
+    <pagination [totalItems]="contentArray.length" 
+    (pageChanged)="pageChanged($event)" [itemsPerPage]="items"
+    ></pagination>
 
+</section> -->
 

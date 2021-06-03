@@ -14,6 +14,8 @@ router.post('/confirmorder' , authMe, async (req , res) =>{
                 max_orders:1
             }
     })
+    //C:\Users\aya\Desktop\Retaurant\backEnd\src\images
+    //src\images
     console.log(req.user)
     if(req.user.max_orders> maxNum) throw new Error(`not allow order more than ${maxNum} `)
     await order.save()
@@ -280,7 +282,7 @@ router.delete('/deletecustomer/:id', async(req,res)=>{
     }
 })
 // user can logout
-router.post('/logout',authMe,async(req,res)=>{
+router.post('user/logout',authMe,async(req,res)=>{
     try{
         req.custModel.tokens = req.custModel.tokens.filter(single =>{
             return single.token != req.token

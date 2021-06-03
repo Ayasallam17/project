@@ -1,11 +1,11 @@
-
+<app-nav></app-nav>
 <section class="featured-food">
     <h2 class="text-center">Breakfast Meals</h2>
     <div class="container"> 
         <div class="row">
             <div class="col-md-4" *ngFor="let meal of allMeal">
                 <div class="food-item"  >
-                    <img  src="http://localhost:3000/showallbreakfast/{{meal.img}}" >
+                    <img  src="http(s)://localhost:3000/{{meal.img}}" >
                     <div class="price"> {{meal.price}}$ </div>
                     <div class="text-content">
                         <h4> {{meal.name}} </h4>

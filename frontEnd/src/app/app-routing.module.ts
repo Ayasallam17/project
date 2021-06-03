@@ -22,7 +22,7 @@ const routes: Routes = [
   //{path : "", component:HomeComponent },
   {path:"register" , component: UserRegisterComponent},
   {path : "worker_register" , component:WorkerRegiterComponent},
-  {path : "login" , component:UserLoginComponent},
+  {path : "login" , component:UserLoginComponent, canActivate:[MyguardGuard]},
   {path : "worker/login" , component:WorkerLoginComponent},
   {path : "add_meal" , component:MealComponent },
   {path : "breakfast" , component:BreakfastComponent },

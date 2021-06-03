@@ -12,9 +12,13 @@ export class MyguardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      if(!this._auth.isLoggedTest()) {
-        alert('you should log first')
-        this.router.navigate(['login'])
+      // if(!this._auth.isLoggedTest()) {
+      //   alert('you should log first')
+      //   this.router.navigate(['login'])
+      // return false
+      // }
+      if(this._auth.isLoggedTest()) {
+        alert('you already login')
       return false
       }
     return true;

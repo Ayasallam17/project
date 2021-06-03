@@ -30,8 +30,9 @@ import { AllmealComponent } from './pages/allmeal/allmeal.component';
 import { MealoperationComponent } from './pages/mealoperation/mealoperation.component';
 import { ButtonComponent } from './pages/button/button.component';
 import { DiscountComponent } from './pages/discount/discount.component';
-import { WorkernavComponent } from './shared/workernav/workernav.component';
-
+import { AdminNavComponent } from './shared/admin-nav/admin-nav.component';
+import { WorkerNavComponent } from './shared/worker-nav/worker-nav.component';
+ 
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { WorkernavComponent } from './shared/workernav/workernav.component';
     MealoperationComponent,
     ButtonComponent,
     DiscountComponent,
-    WorkernavComponent,
+    AdminNavComponent,
+    WorkerNavComponent,
     
   ],
   imports: [

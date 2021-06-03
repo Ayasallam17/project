@@ -1,39 +1,40 @@
-<section class="featured-food" *ngIf = "show"  >
+<app-worker-nav></app-worker-nav>
+<section class="featured-food" >
     <div class="container"> 
-        <div class="row">
+        <div class="row"> 
             <div class="col-md-4" *ngFor="let order of orders">
                 <div class="food-item"  >
-                    <div class="text-content">
+                    <div>
                         <h4>Meal name</h4>
                         <p> {{order.mealname}} </p>
                     </div>
-                    <div class="text-content">
+                    <div>
                         <h4>Meal details</h4>
                         <p> {{order.mealdetails}} </p>
                     </div>
-                    <div class="text-content">
+                    <div>
                         <h4>Meal count</h4>
                         <p> {{order.count}} </p>
                     </div>
-                    <div class="text-content">
+                    <div>
                         <h4>Customer Name</h4>
                         <p> {{order.name}} </p>
                     </div>
-                    <div class="text-content">
+                    <div >
                         <h4>customer Address</h4>
                         <p> {{order.addres}} </p>
                     </div>
-                    <div class="text-content">
+                    <div>
                         <h4>Customer phone</h4>
                         <p> {{order.phone}} </p>
                     </div>
                     <div class="primary-white-button">
-                        <button id="form-submit" class="btn" (click)="deleteOrder(order._id)" >Delete</button>
+                        <a id="form-submit" class="btn" (click)="deleteOrder(order._id)" >Delete</a>
                     </div>
                 </div>
                  
             </div>
-
         </div>
+        
     </div>
 </section>
