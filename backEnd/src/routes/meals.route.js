@@ -1,9 +1,9 @@
-const express = require('express')
-const router = new express.Router()
-const Meal = require('../models/meals.model')
-const multer = require('multer')
-const authroute = require('../middleware/authroute')
-
+const express    = require('express')
+const router     = new express.Router()
+const Meal       = require('../models/meals.model')
+const multer     = require('multer')
+const authAdmin  = require('../middleware/authroute')
+const authWorker = require('../middleware/authWorker')
 
 let storage = multer.diskStorage({
      
@@ -21,7 +21,7 @@ let storage = multer.diskStorage({
     
 }) 
 let upload = multer({storage})
-router.post('/addmeal', upload.single('meal') , async(req , res)=>{
+router.post('/meal', authWorker , authAdmin, upload.single('meal') , async(req , res)=>{
     const meal = new Meal(req.body)
     //console.log(req.body)
     try{
@@ -43,7 +43,7 @@ router.post('/addmeal', upload.single('meal') , async(req , res)=>{
         }
  })
 
- router.post('/getmeal/:id', async(req,res)=>{
+ router.get('/meal/:id', authWorker, authAdmin, async(req,res)=>{
     _id = req.params.id
     try{
         meal = await Meal.findById(_id)
@@ -61,7 +61,7 @@ router.post('/addmeal', upload.single('meal') , async(req , res)=>{
         })
     }
 })
-router.post('/updatemeal/:id', upload.single('meal'), async(req,res)=>{
+router.post('/meal/:id', authWorker, authAdmin, upload.single('meal'), async(req,res)=>{
     _id = req.params.id
     try{
        await Meal.findByIdAndUpdate(_id , req.body)
@@ -81,7 +81,7 @@ router.post('/updatemeal/:id', upload.single('meal'), async(req,res)=>{
     }
 })
 
-router.post('/deletemeal/:id', async(req,res)=>{
+router.delete('/meal/:id', authWorker , authAdmin, async(req,res)=>{
     _id = req.params.id
     try{
        await Meal.findByIdAndRemove(_id)
@@ -100,11 +100,9 @@ router.post('/deletemeal/:id', async(req,res)=>{
     }
 })
 
-router.post('/discount', async(req,res)=>{
-    
+router.post('/meals/discount', authWorker , authAdmin, async(req,res)=>{
    //const meals = await Meal.find( {cat: req.body.cat})
     await  Meal.updateMany({cat: req.body.cat}, { "discount": req.body.precent/100 })
-
     try{
         mealDiscount = await Meal.aggregate([{ 
             $project: {
@@ -119,7 +117,7 @@ router.post('/discount', async(req,res)=>{
                         }, else: {}
                   }
                 }
-              }
+            }
         }])
         mealDiscount.forEach( async element => {
             try{ 
@@ -127,9 +125,7 @@ router.post('/discount', async(req,res)=>{
             catch(e){
                 console.log(e)
             }
-        });
-         
-         
+        });  
         res.status(200).send({
             status:1,   
             data:mealDiscount,
@@ -140,7 +136,7 @@ router.post('/discount', async(req,res)=>{
         res.status(400).send({
             status:0,
             data: e.message,
-            message: 'error in  deleting this meal'
+            message: 'error in  adding a discount'
         })
     }
 })

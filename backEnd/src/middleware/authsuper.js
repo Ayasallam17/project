@@ -1,9 +1,9 @@
 const Worker = require('../models/worker.model')
-const authroute = async (req , res ,next)=>{
+const authsuper = async (req , res ,next)=>{
     try{
-        const worker = await Worker.findOne({'user_id':req.user.user_id, 'role': "admin" }) 
+        const worker = await Worker.findOne({'user_id':req.user.user_id, 'role': "super" }) 
         if(!worker){
-            throw new Error("not auther to do it not admin");
+            throw new Error("not auther to do it not super");
         }
 
         next()
@@ -19,4 +19,4 @@ const authroute = async (req , res ,next)=>{
     } 
 } 
 
-module.exports= authroute
+module.exports= authsuper

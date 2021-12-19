@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-mongoose.connect('mongodb://127.0.0.1:27017/restaurantdb' , {
+const env = require('./env')
+mongoose.connect(`${env.dialect}://${env.host}:${env.port}/${env.database}` , {
     useCreateIndex:true,
     useNewUrlParser:true,
     useFindAndModify:true,

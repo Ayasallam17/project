@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const validator = require('validator')
 
-const meals_schema=  new mongoose.Schema(
+const meals_schema =  new mongoose.Schema(
     {
     name:{
         type:String,

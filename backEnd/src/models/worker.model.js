@@ -12,13 +12,14 @@ const workers=  new mongoose.Schema(
     password:{
         type:String,
         trim:true,
+        require:true
     },
     addresses:[
         {
             addr_type:{
                 type:String,
                 trim:true,
-                //require:true
+                require:true
             },
             details:{
                 type:String,
@@ -29,18 +30,21 @@ const workers=  new mongoose.Schema(
     ] ,
     phone:{
         type:String,
-        //require:true
+        require:true
     },
-    route: 
+    role: 
         {
             type:String,
-            trim:true
+            trim:true,
+            require:true,
+            null:false
         }
       , 
      tokens:[
         { 
         token:{
-            type:String
+            type:String,
+            require:true
         }
      }
      ]

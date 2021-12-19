@@ -1,49 +1,20 @@
 const custModel = require('../models/customers.models')
-const authMe= require('../middleware/authMe')
-const express = require('express')
-const router = new express.Router()
-const Meal = require('../models/meals.model')
-const Order = require('../models/orders')
-router.post('/confirmorder' , authMe, async (req , res) =>{
-    const order = new Order(req.body)
-    maxNum = 7
-    try { 
-    await custModel.findOneAndUpdate({_id :req.user._id}, 
-        {
-            $inc:{
-                max_orders:1
-            }
-    })
-    //C:\Users\aya\Desktop\Retaurant\backEnd\src\images
-    //src\images
-    console.log(req.user)
-    if(req.user.max_orders> maxNum) throw new Error(`not allow order more than ${maxNum} `)
-    await order.save()
-    res.status(200).send({
-        apistatus:true,
-        data:order, 
-        message:'confirme order'  
-    }) 
-    }catch(e)
-    {
-        res.status(400).send({
-            apistatus:false, 
-            data: e.message,
-            message: 'error in confirm order'
-        })
-    }
-})
-// user regiter
-router.post('/user/register' , async (req , res) =>{
+const authMe    = require('../middleware/authMe')
+const authAdmin = require('../middleware/authroute')
+const express   = require('express')
+const router    = new express.Router()
+const Meal      = require('../models/meals.model')
+const Order     = require('../models/orders')
+ 
+router.post('/users/registeration' , async (req , res) =>{
     const customerData = new custModel(req.body)
-    customerData.max_orders = 0
+    //customerData.max_orders = 0
     try { 
     await customerData.save()
-    //console.log(customerData)
     res.status(200).send({
         apistatus:true,
         data:customerData,
-        message:'customer registered successfuly'
+        message:'you registered successfuly'
     })
     }catch(e)
     {
@@ -55,8 +26,7 @@ router.post('/user/register' , async (req , res) =>{
     }
 })
 
-
-router.post('/user/login' , async(req,res)=>{
+router.post('/users/login' , async(req,res)=>{
     try{
         user = await custModel.checkCustomerEmailAndPassword(req.body.email, req.body.password)
         const token =  await user.generateToken()
@@ -64,8 +34,7 @@ router.post('/user/login' , async(req,res)=>{
             apistatus:true,
             data:user,
             token:token,
-            message:'user login'
-            
+            message:'you are login' 
         })
         }catch(e)
         {
@@ -77,7 +46,7 @@ router.post('/user/login' , async(req,res)=>{
         }
 })
 
-router.post('/user/logout', authMe, async(req,res)=>{
+router.post('/users/logout', authMe, async(req,res)=>{
     try{
         req.user.tokens = req.user.tokens.filter((singleToken)=>{
             return singleToken.token != req.token
@@ -98,7 +67,7 @@ router.post('/user/logout', authMe, async(req,res)=>{
     }
 
 })
-router.post('/user/logoutAll',authMe, async(req,res)=>{
+router.post('/users/logoutall',authMe, async(req,res)=>{
     try{
         req.user.tokens = []
         await req.user.save()
@@ -117,22 +86,50 @@ router.post('/user/logoutAll',authMe, async(req,res)=>{
     }
 
 })
-
-router.get('/user/me',authMe, async(req,res)=>{
-    res.status(200).send({
-        error: null,
-        apiStatus:true,
-        data: {user:req.user}
-    })
-})
-router.post('/showallbreakfast',async(req,res)=>{
+router.post('/meals/breakfast' , async(req , res)=>{
     const cat = req.body.cat
     try{
         const meals = await Meal.find({cat})
         res.status(200).send({
             apistatus:true,
             data:meals,
-            message:'all meals'
+            message:'all breakfast meals'   
+        })
+        }catch(e)
+        {
+            res.status(400).send({
+                apistatus:false,
+                data: e.message,
+                message: 'error in showing breakfast meals'
+            })
+        }
+})
+router.post('/meals/lunch',async(req,res)=>{
+    const cat = req.body.cat
+    try{
+        const meals = await Meal.find({cat})
+        res.status(200).send({
+            apistatus:true,
+            data:meals,
+            message:'all lunch meals'   
+        })
+        }catch(e)
+        {
+            res.status(400).send({
+                apistatus:false,
+                data: e.message,
+                message: 'error in showing lunch meals'
+            })
+        }   
+})
+router.post('/meals/dinner',async(req,res)=>{
+    const cat = req.body.cat
+    try{
+        const meals = await Meal.find({cat})
+        res.status(200).send({
+            apistatus:true,
+            data:meals,
+            message:'all dinner meals'
             
         })
         }catch(e)
@@ -140,49 +137,11 @@ router.post('/showallbreakfast',async(req,res)=>{
             res.status(400).send({
                 apistatus:false,
                 data: e.message,
-                message: 'error in showing meals'
+                message: 'error in showing dinner meals'
             })
         }
 })
-router.post('/showalllunch',async(req,res)=>{
-    const cat = req.body.cat
-    try{
-        const meals = await Meal.find({cat})
-        res.status(200).send({
-            apistatus:true,
-            data:meals,
-            message:'all meals'
-            
-        })
-        }catch(e)
-        {
-            res.status(400).send({
-                apistatus:false,
-                data: e.message,
-                message: 'error in showing meals'
-            })
-        }
-})
-router.post('/showalldinner',async(req,res)=>{
-    const cat = req.body.cat
-    try{
-        const meals = await Meal.find({cat})
-        res.status(200).send({
-            apistatus:true,
-            data:meals,
-            message:'all meals'
-            
-        })
-        }catch(e)
-        {
-            res.status(400).send({
-                apistatus:false,
-                data: e.message,
-                message: 'error in showing meals'
-            })
-        }
-})
-router.post('/orderitem/:id',  authMe , async(req,res)=>{
+router.post('/users/order-meal/:id',  authMe , async(req,res)=>{   //choice item to order
     _id = req.params.id
     try{
         meal = await Meal.findById(_id)
@@ -200,10 +159,38 @@ router.post('/orderitem/:id',  authMe , async(req,res)=>{
         })
     }
 })
+router.post('/users/confirmation-order' , authMe, async (req , res) =>{  //confirm order this item
+    const order = new Order(req.body)
+    //maxNum = 7
+    try { 
+    // await custModel.findOneAndUpdate({_id :req.user._id}, 
+    //     {
+    //         $inc:{
+    //             max_orders:1
+    //         }
+    // })
+    //C:\Users\aya\Desktop\Retaurant\backEnd\src\images
+    //src\images
+    //console.log(req.user)
+    //if(req.user.max_orders> maxNum) throw new Error(`not allow order more than ${maxNum} `)
+    await order.save()
+    res.status(200).send({
+        apistatus:true,
+        data:order, 
+        message:'confirme order'  
+    }) 
+    }catch(e)
+    {
+        res.status(400).send({
+            apistatus:false, 
+            data: e.message,
+            message: 'error in confirm order'
+        })
+    }
+})
 //auther the admin to edit something
-router.post('/editprice',authMe  ,async(req , res)=>{
-    try{
-        
+router.post('/editprice', authMe , authAdmin ,async(req , res)=>{
+    try{ 
         res.status(200).send({
             message:"you can modified price",
             error:false
@@ -217,9 +204,6 @@ router.post('/editprice',authMe  ,async(req , res)=>{
         })
     }
 })
-
-// user login
-
  
 // worker show the user's orders
 router.get('/showallcustomer', async(req,res)=>{

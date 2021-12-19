@@ -14,7 +14,7 @@ const authWorker = async (req, res, next)=>{
     res.status(400).send({
         apistatus:false,
         data: e.message,
-        message: 'you are not auther'
+        message: 'acsess denied'
     })
    }
     

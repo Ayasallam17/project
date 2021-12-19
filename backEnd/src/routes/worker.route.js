@@ -1,13 +1,13 @@
 
 const express = require('express')
 const router = new express.Router()
-const authroute = require('../middleware/authroute')
+const authsuper = require('../middleware/authsuper')
 const Worker = require('../models/worker.model')
 const Meal = require('../models/meals.model')
 const Order = require('../models/orders')
 const authWorker = require('../middleware/authWorker')
 
-router.post('/worker_register' , async (req , res) =>{
+router.post('/workers/registeration' , authWorker, authsuper,  async (req , res) =>{  // adim id = 1 pass:123
     const worker = new Worker(req.body)
     try { 
     await Worker.checkUniqUserId(req.body.user_id)
@@ -27,7 +27,7 @@ router.post('/worker_register' , async (req , res) =>{
     }
 })
 
-router.post('/worker/login', async(req,res)=>{
+router.post('/workers/login', async(req,res)=>{
     try{
         worker = await Worker.checkWorkerUserIdAndPassword(req.body.user_id, req.body.password)
 
@@ -37,8 +37,7 @@ router.post('/worker/login', async(req,res)=>{
             data:worker,
             token:token,
             route:worker.route,
-            message:'worker login'
-            
+            message:'worker login'   
         })
         }catch(e)
         {
@@ -49,7 +48,7 @@ router.post('/worker/login', async(req,res)=>{
             })
         }
 })
-router.post('/worker/logout', authWorker, async(req,res)=>{
+router.post('/workers/logout', authWorker, async(req,res)=>{
     try{
         req.user.tokens = req.user.tokens.filter((singleToken)=>{
             return singleToken.token != req.token
@@ -70,7 +69,7 @@ router.post('/worker/logout', authWorker, async(req,res)=>{
     }
 
 })
-router.post('/showorders', async(req,res)=>{
+router.post('/workers/orders', authWorker , async(req,res)=>{
     try{
         const orders = await Order.find()
         res.status(200).send({
@@ -89,7 +88,7 @@ router.post('/showorders', async(req,res)=>{
         }
 })
  
-router.post('/deleteorder/:id', async(req,res)=>{
+router.delete('/workers/order/:id', authWorker, async(req,res)=>{
     const id = req.params.id
     await Order.findByIdAndRemove(id)
     try{
